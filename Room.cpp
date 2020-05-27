@@ -31,7 +31,21 @@ string Room::Act(Action action, Entity actor, World world)
 			return nearby[action.direction]->Act(Action(Enter), actor, world);
 		}
 
-		break;
+		if (doors[action.direction])
+		{
+			if (doors[action.direction]->GetState() == Open)
+			{
+				objects.remove(&actor);
+
+				doors[action.direction]->GetTarget()->objects.push_back(&actor);
+
+				return doors[action.direction]->GetTarget()->Act(Action(Enter), actor, world);
+			}
+
+			return "The " + doors[action.direction]->GetName() + " is close.";
+		}
+
+		return "You can't move to this direction."; //since there is not a door or passage to there
 
 	default:
 		return Object::Act(action, actor, world);
