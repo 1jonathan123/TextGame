@@ -2,7 +2,7 @@
 
 #include "Object.h"
 
-enum ActionID { Examine, Enter, Open, Close, Move };
+class Object;
 
 //contains useful information about an action
 struct Action
@@ -13,5 +13,5 @@ struct Action
 
 	Object* object; //another parameter. Example: put x in y. here x is object
 
-	Action(ActionID id, Direction direction = Nowhere, Object* object = nullptr);
+	Action(ActionID id = UnknownAction, Direction direction = Nowhere, Object* object = nullptr);
 };

@@ -1,23 +1,17 @@
 #pragma once
 
-#include "Object.h"
 #include "Room.h"
+#include "Entity.h"
+#include "Openable.h"
+#include "Placeable.h"
 
-enum DoorState { Close, Open };
-
-class Door : public Object
+class Door : public Openable, public Placeable
 {
-	DoorState state; //the state of the door
-	Direction place; //the place of the door in the room(where it leads to)
 	Room* target;
 
 public:
 
-	Door(string name, string description);
-
-	DoorState GetState();
+	Door(string name, string description, Room* room, Room* target, Object* key);
 
 	Room* GetTarget();
-
-	string Act(Action, Entity, World) override;
 };

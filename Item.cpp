@@ -1,10 +1,20 @@
 #include "Item.h"
+#include "Entity.h"
 
-string Item::Act(Action action, Entity actor, World world)
+Item::Item(string name, string description, bool portable)
+	: Object(name, description)
 {
-	switch (action.id)
-	{
-	default:
-		return Object::Act(action, actor, world);
-	}
+	this->portable = portable;
+
+	actions[Take] = &FunctionTake;
+}
+
+bool Item::IsPortable()
+{
+	return portable;
+}
+
+string Item::FunctionTake(Object* me, Action action, Entity& actor, World& world)
+{
+	return action.object->Act(Action(Take, action.direction, me), actor, world);
 }
